@@ -1,6 +1,7 @@
 package calculator.model;
 
 import calculator.validator.CustomDelimiterValidator;
+import calculator.validator.InputValidator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ public class Parser {
     }
 
     public List<Integer> parse() {
+        InputValidator inputValidator = new InputValidator();
+        inputValidator.validateInput(input);
+
         CustomDelimiterValidator customDelimiterValidator = new CustomDelimiterValidator();
 
         if (input.startsWith("//")) {
