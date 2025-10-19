@@ -37,7 +37,7 @@ public class Parser {
         String pattern = buildPattern(customDelimiter);
 
         // 3. 문자열 전처리 (커스텀 구분자 적용 문자열일시, Prefix를 제거)
-        String cleanedInput = preprocessInput(input, customDelimiter);
+        String cleanedInput = preprocessInput(customDelimiter);
 
         // 4. 구분자로 문자열을 분리
         Separator separator = new Separator(pattern);
@@ -56,14 +56,14 @@ public class Parser {
         return customDelimiter != null ? "[,:" + customDelimiter + "]" : DEFAULT_DELIMITER;
     }
 
-    private String preprocessInput(String input, String customDelimiter) {
+    private String preprocessInput(String customDelimiter) {
         if (customDelimiter != null) {
-            return removePrefix(input);
+            return removePrefix();
         }
         return input;
     }
 
-    private String removePrefix(String input) {
+    private String removePrefix() {
         int startIndex = input.indexOf("\\n") + 2;
         return input.substring(startIndex);
     }
