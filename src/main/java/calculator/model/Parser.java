@@ -2,6 +2,7 @@ package calculator.model;
 
 import calculator.validator.CustomDelimiterValidator;
 import calculator.validator.InputValidator;
+import calculator.validator.NumberValidator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,9 @@ public class Parser {
         // 4. 구분자로 문자열을 분리
         Separator separator = new Separator(pattern);
         String[] separatedInput = separator.separateInputValue(cleanedInput);
+
+        NumberValidator numberValidator = new NumberValidator();
+        numberValidator.validateNumber(separatedInput);
 
         // 5. 분리된 문자들을 정수형으로 변환
         return convertToNumbers(separatedInput);
