@@ -6,7 +6,7 @@ public class NumberValidator {
 
     public void validateNumber(String[] separatedInput) {
         for (String token : separatedInput) {
-            if (token.contains("-") || token.contains(".") || token.contains("0")) {
+            if (token.contains("-") || token.contains(".") || Integer.parseInt(token) <= 0) {
                 throw new IllegalArgumentException(ONLY_NATURAL_NUMBER_ALLOWED);
             }
         }
