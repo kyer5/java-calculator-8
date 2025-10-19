@@ -16,18 +16,15 @@ public class Parser {
     }
 
     public List<Integer> parse() {
-        InputValidator inputValidator = new InputValidator();
-        inputValidator.validateInput(input);
+        validateInput();
 
         String customDelimiter = getCustomDelimiter();
 
-        // 2. 패턴 생성
         String pattern = buildPattern(customDelimiter);
 
-        // 3. 문자열 전처리 (커스텀 구분자 적용 문자열일시, Prefix를 제거)
         String cleanedInput = preprocessInput(customDelimiter);
 
-        inputValidator.validateInputDelimiter(cleanedInput, customDelimiter);
+        validateInputDelimiter(cleanedInput, customDelimiter);
 
         String[] separatedInput = getSeparatedInput(pattern, cleanedInput);
 
@@ -50,7 +47,6 @@ public class Parser {
             customDelimiterValidator.validateFormat(input);
         }
 
-        // 1. 구분자 추출
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
         String customDelimiter = delimiterExtractor.extractCustomDelimiter(input);
 
@@ -83,5 +79,15 @@ public class Parser {
             numbers.add(value.isEmpty() ? 0 : Integer.parseInt(value));
         }
         return numbers;
+    }
+
+    private void validateInput() {
+        InputValidator inputValidator = new InputValidator();
+        inputValidator.validateInput(input);
+    }
+
+    private void validateInputDelimiter(String cleanedInput, String customDelimiter) {
+        InputValidator inputValidator = new InputValidator();
+        inputValidator.validateInputDelimiter(cleanedInput, customDelimiter);
     }
 }
