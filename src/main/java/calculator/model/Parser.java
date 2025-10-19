@@ -46,6 +46,8 @@ public class Parser {
         NumberValidator numberValidator = new NumberValidator();
         numberValidator.validateNumber(separatedInput);
 
+        inputValidator.validateInputDelimiter(cleanedInput, customDelimiter);
+
         // 5. 분리된 문자들을 정수형으로 변환
         return convertToNumbers(separatedInput);
     }
