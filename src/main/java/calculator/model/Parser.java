@@ -1,5 +1,6 @@
 package calculator.model;
 
+import calculator.validator.CustomDelimiterValidator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,12 @@ public class Parser {
     }
 
     public List<Integer> parse() {
+        CustomDelimiterValidator customDelimiterValidator = new CustomDelimiterValidator();
+
+        if (input.startsWith("//")) {
+            customDelimiterValidator.validateFormat(input);
+        }
+
         // 1. 구분자 추출
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
         String customDelimiter = delimiterExtractor.extractCustomDelimiter(input);
