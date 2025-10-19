@@ -19,19 +19,7 @@ public class Parser {
         InputValidator inputValidator = new InputValidator();
         inputValidator.validateInput(input);
 
-        CustomDelimiterValidator customDelimiterValidator = new CustomDelimiterValidator();
-
-        if (input.startsWith("//")) {
-            customDelimiterValidator.validateFormat(input);
-        }
-
-        // 1. 구분자 추출
-        DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
-        String customDelimiter = delimiterExtractor.extractCustomDelimiter(input);
-
-        if (customDelimiter != null) {
-            customDelimiterValidator.validateDelimiter(customDelimiter);
-        }
+        String customDelimiter = getCustomDelimiter();
 
         // 2. 패턴 생성
         String pattern = buildPattern(customDelimiter);
@@ -50,6 +38,23 @@ public class Parser {
 
         // 5. 분리된 문자들을 정수형으로 변환
         return convertToNumbers(separatedInput);
+    }
+
+    private String getCustomDelimiter() {
+        CustomDelimiterValidator customDelimiterValidator = new CustomDelimiterValidator();
+
+        if (input.startsWith("//")) {
+            customDelimiterValidator.validateFormat(input);
+        }
+
+        // 1. 구분자 추출
+        DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
+        String customDelimiter = delimiterExtractor.extractCustomDelimiter(input);
+
+        if (customDelimiter != null) {
+            customDelimiterValidator.validateDelimiter(customDelimiter);
+        }
+        return customDelimiter;
     }
 
     private String buildPattern(String customDelimiter) {
