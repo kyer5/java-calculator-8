@@ -28,6 +28,10 @@ public class Parser {
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
         String customDelimiter = delimiterExtractor.extractCustomDelimiter(input);
 
+        if (customDelimiter != null) {
+            customDelimiterValidator.validateDelimiter(customDelimiter);
+        }
+
         // 2. 패턴 생성
         String pattern = buildPattern(customDelimiter);
 
