@@ -27,17 +27,20 @@ public class Parser {
         // 3. 문자열 전처리 (커스텀 구분자 적용 문자열일시, Prefix를 제거)
         String cleanedInput = preprocessInput(customDelimiter);
 
-        // 4. 구분자로 문자열을 분리
+        inputValidator.validateInputDelimiter(cleanedInput, customDelimiter);
+
+        String[] separatedInput = getSeparatedInput(pattern, cleanedInput);
+
+        return convertToNumbers(separatedInput);
+    }
+
+    private static String[] getSeparatedInput(String pattern, String cleanedInput) {
         Separator separator = new Separator(pattern);
         String[] separatedInput = separator.separateInputValue(cleanedInput);
 
         NumberValidator numberValidator = new NumberValidator();
         numberValidator.validateNumber(separatedInput);
-
-        inputValidator.validateInputDelimiter(cleanedInput, customDelimiter);
-
-        // 5. 분리된 문자들을 정수형으로 변환
-        return convertToNumbers(separatedInput);
+        return separatedInput;
     }
 
     private String getCustomDelimiter() {
