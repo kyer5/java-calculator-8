@@ -15,13 +15,16 @@ public class InputValidator {
         String[] tokens = input.split("");
 
         for (String token : tokens) {
+            if (Character.isDigit(token.charAt(0)) || token.equals("-") || token.equals(".")) {
+                continue;
+            }
+
             if (customDelimiter != null) {
-                if (!token.equals(",") && !token.equals(":")
-                        && !token.equals(customDelimiter) && !Character.isDigit(token.charAt(0))) {
+                if (!token.equals(",") && !token.equals(":") && !token.equals(customDelimiter)) {
                     throw new IllegalArgumentException(INVALID_DELIMITER);
                 }
             } else {
-                if (!token.equals(",") && !token.equals(":") && !Character.isDigit(token.charAt(0))) {
+                if (!token.equals(",") && !token.equals(":")) {
                     throw new IllegalArgumentException(INVALID_DELIMITER);
                 }
             }
